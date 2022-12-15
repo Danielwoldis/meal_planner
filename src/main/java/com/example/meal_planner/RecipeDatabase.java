@@ -91,5 +91,7 @@ public class RecipeDatabase {
         //, rs.getInt("PRICE"));
     }
 
-
+    public Recipe getRecipeById ( int id){
+        return getAllRecipes().get(id);
+    }
 }
