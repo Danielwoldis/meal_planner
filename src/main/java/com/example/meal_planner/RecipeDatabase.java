@@ -336,7 +336,7 @@ public class RecipeDatabase {
                 "5. Rør inn pastavann og revet parmesan og juster smaken med salt, pepper og sitronsaft. Kok opp og tilsett litt mer pastavann om du synes sausen er for tykk.<br>" +
                 "<br>" +
                 "6. Vend den kokte spagettien inn i sausen og la det hele bli gjennomvarmt. " ;
-        return new Recipe("eksotisk levergryte",ingredientList, instruction) ;
+        return new Recipe("Pasta",ingredientList, instruction) ;
 
 
     }
