@@ -68,7 +68,7 @@ public class DataBaseMover {
 
         for (Recipe r : allRecipes.values()) {
             for (Ingredient i : r.getIngredients())
-                System.out.printf("INSERT IGNORE INTO INGREDIENT (ingredient_name) VALUES ('%s');%n", i.getName());
+                System.out.printf("INSERT INTO INGREDIENT (ingredient_name) VALUES ('%s');%n", i.getName());
         }
 
     }
