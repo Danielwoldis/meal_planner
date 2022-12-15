@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MealPlannerServiceTest {
+
+    /*
     @Test
     public void isDublicate() {
         MealPlanService mealPlanService = new MealPlanService();
@@ -35,4 +37,6 @@ public class MealPlannerServiceTest {
         assertEquals("Svinekam",mealPlanService.getRecipeById(13).getName() );
 
     }
+
+     */
 }

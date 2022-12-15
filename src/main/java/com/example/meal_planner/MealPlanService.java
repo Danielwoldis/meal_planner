@@ -7,23 +7,20 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Data
-@AllArgsConstructor
 @Service
 public class MealPlanService {
-  HashMap<Integer, Recipe> recipes;
+  HashMap<Integer, Recipe> recipes = null;
   List<Integer> idList;
+  private RecipeDatabase recipeDatabase;
 
-  public MealPlanService() {
-    recipes = new HashMap<>();
+  public MealPlanService(RecipeDatabase recipeDatabase) {
 
-    RecipeDatabase database = new RecipeDatabase() ;
-    recipes = database.getAllRecipes() ;
-
-
+    this.recipeDatabase = recipeDatabase;
   }
 
   // Method to generate list of 7 random recipes
   public HashMap<Integer, Recipe> generateWeeklyMenu() {
+    loadRecipes();
     idList = new ArrayList<>(recipes.keySet());
 
     HashMap<Integer, Recipe> thisWeek = new HashMap<>();
@@ -43,37 +40,44 @@ public class MealPlanService {
       return thisWeek;
   }
 
-    /*public List<Recipe> replaceRecipe (List < Recipe > recipes,int index){
-      List<Recipe> newList = new ArrayList<>();
-      Random random = new Random();
+  private void loadRecipes() {
+    if (recipes == null) {
+      recipeDatabase.loadAllRecipes();
+      recipes = recipeDatabase.getAllRecipes() ;
+    }
+  }
 
-      for (int i = 0; i < index; i++) {
-        newList.add(recipes.get(i));
+  /*public List<Recipe> replaceRecipe (List < Recipe > recipes,int index){
+    List<Recipe> newList = new ArrayList<>();
+    Random random = new Random();
 
-      int[]numbers = new int[7] ;
-      for (int i=0;i<numbers.length;i++) {
-        int randIndex = random.nextInt(idList.size());
-        System.out.println(randIndex);
-        if(isDublicate(numbers,randIndex))  {
-          i--;
-          System.out.println(i + "etter");
-        }
-          else
-          numbers[i] = idList.get(randIndex) ;
+    for (int i = 0; i < index; i++) {
+      newList.add(recipes.get(i));
+
+    int[]numbers = new int[7] ;
+    for (int i=0;i<numbers.length;i++) {
+      int randIndex = random.nextInt(idList.size());
+      System.out.println(randIndex);
+      if(isDublicate(numbers,randIndex))  {
+        i--;
+        System.out.println(i + "etter");
       }
-      for(int i=0;i< numbers.length;i++)
-      {
-        System.out.println("Array: " + numbers[i]);
-      }
-      for (int i=0;i<numbers.length;i++)
-      {
-        thisWeek.put(numbers[i], recipes.get(numbers[i])) ;
-      }
+        else
+        numbers[i] = idList.get(randIndex) ;
+    }
+    for(int i=0;i< numbers.length;i++)
+    {
+      System.out.println("Array: " + numbers[i]);
+    }
+    for (int i=0;i<numbers.length;i++)
+    {
+      thisWeek.put(numbers[i], recipes.get(numbers[i])) ;
+    }
 
 
-      return thisWeek ;
-      //return recipes.subList(0, 7);
-    }*/
+    return thisWeek ;
+    //return recipes.subList(0, 7);
+  }*/
     public boolean isDublicate(int[]numbers, int newNumber)
     {
       for(int i=0;i<numbers.length;i++) {
@@ -101,6 +105,7 @@ public class MealPlanService {
 
     // Method to add new recipe to list
     public void addRecipe(Recipe recipe){
+      loadRecipes();
       // TODO: check if exists
      // System.out.println(recipes.size());
       int key = recipes.size();
@@ -109,6 +114,7 @@ public class MealPlanService {
 
     // Method to get recipe by id
     public Recipe getRecipeById ( int id){
+      loadRecipes();
       return recipes.get(id);
     }
 
@@ -121,6 +127,7 @@ public class MealPlanService {
     }
 
     public int numberOfPages ( int pageSize){
+      loadRecipes();
       return (int) Math.ceil((double) recipes.size() / pageSize);
     }
 
