@@ -15,6 +15,9 @@ public class MealPlannerServiceTest {
     @Autowired
     RecipeDatabase recipeDatabase;
 
+    @Autowired
+    MealPlanService mealPlanService;
+
 
     @org.junit.Test
     public void shouldGetRecipeById() {
@@ -22,6 +25,18 @@ public class MealPlannerServiceTest {
         //Recipe recipe = recipeDatabase.getAllRecipes().get(1);
 
         Recipe recipe = recipeDatabase.getRecipeById(1);
+
+        Assert.assertEquals("message..", "Biff på primus", recipe.getName());
+    }
+
+
+
+    @org.junit.Test
+    public void shouldGetRecipeByIdFromMealPlanService() {
+        //recipeDatabase.loadAllRecipes();
+        //Recipe recipe = recipeDatabase.getAllRecipes().get(1);
+
+        Recipe recipe = mealPlanService.getRecipeById(1);
 
         Assert.assertEquals("message..", "Biff på primus", recipe.getName());
     }
