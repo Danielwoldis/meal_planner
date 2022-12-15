@@ -11,13 +11,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class MealPlannerServiceTest {
 
+
     @Autowired
     RecipeDatabase recipeDatabase;
 
 
     @org.junit.Test
-    public void testTest() {
+    public void shouldGetRecipeById() {
+        recipeDatabase.loadAllRecipes();
+        //Recipe recipe = recipeDatabase.getAllRecipes().get(1);
 
+        Recipe recipe = recipeDatabase.getRecipeById(1);
+
+        Assert.assertEquals("message..", "Biff på primus", recipe.getName());
     }
 
 
